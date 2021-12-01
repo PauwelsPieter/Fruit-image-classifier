@@ -26,21 +26,6 @@ def scrape(category, scrolls=5):
     added_pictures = 0
 
     for i in range(scrolls):
-        images = driver.find_elements_by_tag_name('img')
-
-        for i, img in enumerate(images):
-            source = img.get_attribute("src")
-
-            if not "images.unsplash.com/photo" in source:
-                continue
-
-            img_data = requests.get(source).content
-            with open(f'./out/{category}-{added_pictures}.jpg', 'wb') as handler:
-                handler.write(img_data)
-                added_pictures += 1
-
-        print(f"Download batch {i}")
-
         driver.execute_script(
             "window.scrollTo(0,document.body.scrollHeight-2000)")
 
@@ -52,11 +37,26 @@ def scrape(category, scrolls=5):
             print("No button to press")
 
         print('Loaded more photos')
-        time.sleep(10)
+        time.sleep(1)
+
+    images = driver.find_elements_by_tag_name('img')
+
+    for img in images:
+        source = img.get_attribute("src")
+
+        if not "images.unsplash.com/photo" in source:
+            continue
+
+        img_data = requests.get(source).content
+        with open(f'./out/{category}-{added_pictures}.jpg', 'wb') as handler:
+            handler.write(img_data)
+            added_pictures += 1
+
+    print(f"Download pictures")
 
 
-fruits = ['banana', 'apple-fruit', 'orange-fruit', 'avocado', 'grape']
+fruits = ['avocado']
 
 clean()
 for fruit in fruits:
-    scrape(fruit, 10)
+    scrape(fruit, 50)
