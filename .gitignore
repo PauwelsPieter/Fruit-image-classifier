@@ -6,5 +6,5 @@ __pycache__/
 
 .ipynb_checkpoints/
 
-models/
-export.pkl
+model/models/
+model/export.pkl
