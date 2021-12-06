@@ -1,6 +1,8 @@
 from flask import Flask, request, render_template, redirect, url_for, send_file
 from werkzeug.utils import secure_filename
 import os
+import predict
+
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = './uploads'
@@ -17,16 +19,12 @@ def index():
 
         img.save(path)
 
-        return redirect(url_for("result", result=path))
+        prediction = predict.predict(path)
+
+        return render_template('result.html', prediction=prediction)
 
     # Homepagina
     return render_template('index.html')
 
 
-@app.route('/result', methods=['GET'])
-def result():
-    result = request.args['result']
-    return send_file(result, mimetype='image/gif')
-
-
-app.run(port=5000, debug=True)
+app.run(port=4000, debug=True)
