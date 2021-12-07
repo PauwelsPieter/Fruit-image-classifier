@@ -1,4 +1,8 @@
 # Big-Data Scraper
+
+## Installing packages
+From the root folder, run `python3 -m pip install -r requirements.txt`
+
 ## Running the app
 From the `app/` folder, run `python3 main.py`
 
