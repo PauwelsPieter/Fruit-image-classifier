@@ -11,7 +11,7 @@ app.config['UPLOAD_FOLDER'] = './uploads'
 def index():
     if request.method == 'POST':
         img = request.files['image']
-
+        
         # Save image
         filename = secure_filename(img.filename)
         path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
