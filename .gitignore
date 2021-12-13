@@ -7,6 +7,5 @@ __pycache__/
 .ipynb_checkpoints/
 
 model/models/
-model/export.pkl
 
 app/static/uploads/*
